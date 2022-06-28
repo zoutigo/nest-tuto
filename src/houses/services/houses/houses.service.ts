@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CreateHouseDto } from 'src/houses/dtos/CreateHouse.dto';
+import { House } from 'src/houses/types/House';
 
 @Injectable()
 export class HousesService {
-  houses = [
+  private houses: House[] = [
     {
       name: 'maison du louvre',
       city: 'madrid',
@@ -39,5 +41,13 @@ export class HousesService {
 
   findHouseById(id: number) {
     return this.houses.find((house) => house.id === id);
+  }
+
+  getHouses() {
+    return this.houses;
+  }
+
+  createHouse(houseDto: CreateHouseDto) {
+    this.houses.push(houseDto);
   }
 }

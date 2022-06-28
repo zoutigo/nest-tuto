@@ -1,14 +1,17 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
+  Post,
   Req,
   Res,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { CreateCustomerDto } from 'src/costumers/dtos/CreateCutomer.dto';
 import { CostumersService } from 'src/costumers/services/costumers/costumers.service';
 
 @Controller('costumers')
@@ -34,8 +37,18 @@ export class CostumersController {
     return costumer;
   }
 
+  // @Get('')
+  // getCostumer() {
+  //   return this.costumersService.findCostumer();
+  // }
+
   @Get('')
-  getCostumer() {
-    return this.costumersService.findCostumer();
+  getAllCustomers() {
+    return this.costumersService.getCustomers();
+  }
+
+  @Post('create')
+  createCostumer(@Body() createCustomerDto: CreateCustomerDto) {
+    this.costumersService.createCostumer(createCustomerDto);
   }
 }

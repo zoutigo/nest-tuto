@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -6,7 +7,9 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Post,
 } from '@nestjs/common';
+import { CreateHouseDto } from 'src/houses/dtos/CreateHouse.dto';
 import { HousesService } from 'src/houses/services/houses/houses.service';
 
 @Controller('houses')
@@ -23,8 +26,18 @@ export class HousesController {
     return house;
   }
 
+  // @Get()
+  // getHouse() {
+  //   return this.housesService.findHouse();
+  // }
+
   @Get()
-  getHouse() {
-    return this.housesService.findHouse();
+  getAllHouse() {
+    return this.housesService.getHouses();
+  }
+
+  @Post('create')
+  createHouse(@Body() createHouseDto: CreateHouseDto) {
+    this.housesService.createHouse(createHouseDto);
   }
 }
